@@ -47,11 +47,13 @@ public class TasksController {
 	@PostMapping("save")
 	public String save(Todo todo, Model model) {
 		try {
+
 			RestTemplate restTemplate = new RestTemplate();
 			restTemplate.postForObject(
 					getBackendURL() + "/tasks-backend/todo", todo, Object.class);			
 			model.addAttribute("success", "Success!");
 			return "index";
+			
 		} catch(Exception e) {
 			Pattern compile = Pattern.compile("message\":\"(.*)\",");
 			Matcher m = compile.matcher(e.getMessage());
